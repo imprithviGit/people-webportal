@@ -138,8 +138,7 @@ function showDatabaseEntries() {
         icon: 'info',
         toast: 'true',
         position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000 
+        timer: 2000,
     });
 
     var form = document.getElementById("userDetailsForm");
@@ -166,8 +165,9 @@ function showDatabaseEntries() {
     
 function displayDataInTable(data) {
     var table = document.createElement("table");
-    var headerRow = table.insertRow();
+    table.classList.add("table", "table-striped", "table-bordered"); // Adding Bootstrap table classes
 
+    var headerRow = table.insertRow();
     Object.keys(data[0]).forEach(key => {
         var headerCell = document.createElement("th");
         headerCell.textContent = key;
@@ -176,8 +176,12 @@ function displayDataInTable(data) {
 
     data.forEach(item => {
         var row = table.insertRow(); 
-        Object.values(item).forEach(value => {
+        Object.entries(item).forEach(([key, value]) => {
             var cell = row.insertCell(); 
+            // Trim DOB string to get the first 10 characters
+            if (key === "dob" && value.length > 10) {
+                value = value.substring(0, 10);
+            }
             cell.textContent = value;
             cell.style.padding = "8px"; 
         });
@@ -191,8 +195,9 @@ function displayDataInTable(data) {
     }
 
     dataTable.innerHTML = '';
-
     dataTable.appendChild(table);
 }
+
+
 
 
