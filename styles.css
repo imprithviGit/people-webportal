@@ -6,7 +6,8 @@ body {
 }
 
 .container {
-    width: 50%;
+    width: 90%; /* Adjusted width for smaller screens */
+    max-width: 500px; /* Set a maximum width */
     margin: 50px auto;
     background-color: #fff;
     padding: 20px;
@@ -31,11 +32,12 @@ select,
 input[type="date"],
 input[type="file"] {
     width: 100%;
-    padding: 10px;
+    padding: 12px; /* Increased padding for larger touch areas */
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    font-size: 16px; /* Increased font size for better readability */
 }
 
 small {
@@ -44,12 +46,13 @@ small {
 
 button {
     width: 100%;
-    padding: 10px;
+    padding: 12px; /* Increased padding for larger touch areas */
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px; /* Increased font size for better readability */
 }
 
 button:hover {
@@ -58,4 +61,24 @@ button:hover {
 
 button:active {
     background-color: #0056b3;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 600px) {
+    .container {
+        width: 95%; /* Adjusted width for smaller screens */
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="number"],
+    select,
+    input[type="date"],
+    input[type="file"] {
+        font-size: 14px; /* Decreased font size for smaller screens */
+    }
+
+    button {
+        font-size: 14px; /* Decreased font size for smaller screens */
+    }
 }

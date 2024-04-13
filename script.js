@@ -1,14 +1,28 @@
 function onClickSubmit() {
-    var isConfirmed = confirm("Are you sure you want to submit?");
-    if (!isConfirmed) {
-        return
-    }
+    Swal.fire({
+        title: 'Are you sure?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true,
+        showCloseButton: false,
+        timer: null,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            submitForm()
+            console.log('Sure to submit');
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            console.log('Form submission canceled');
+            return
+        }
+    });
+}
+
+function submitForm() {
+
     // Get form inputs
     var fullName = document.getElementById("fullName").value;
-    if (fullName == null || fullName == "") {
-        return
-    }
-    console.log("FullName = " + fullName)
     var contactNumber = document.getElementById("contactNumber").value;
     var gender = document.getElementById("gender").value;
     var location = document.getElementById("location").value;
@@ -31,8 +45,31 @@ function onClickSubmit() {
         panNo: panNo
     };
 
+    isCorrect = verifyDetails(payload)
+    if (isCorrect == false) {
+        showToast("Please input correct details", 1)
+        return
+    }
     // Send payload to API
     sendToAPI(payload);
+
+}
+
+function isNullOrEmpty(data) {
+    if (data == null || data == "") {
+        return true;
+    }
+    return false;
+}
+
+function verifyDetails(payload) {
+    if (isNullOrEmpty(payload.fullName) || isNullOrEmpty(payload.contactNumber)) {
+        return false;
+    }
+
+    if (isNullOrEmpty(payload.aadharNo) && isNullOrEmpty(payload.panNo)) {
+        return false;
+    }
 }
 
 function sendToAPI(payload) {
@@ -45,8 +82,7 @@ function sendToAPI(payload) {
         method: 'POST', // Adjust the method as per your API requirements
         headers: {
             'Content-Type': 'application/json',
-            'Origin': 'localhost',
-            'Access-Control-Allow-Origin': '*' // Specify the content type of the request body
+            'Origin': 'dummy',
         },
         body: JSON.stringify(payload) // Convert the payload object to JSON format
     })
@@ -54,19 +90,46 @@ function sendToAPI(payload) {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.json(); // Parse the JSON response
+        return response; // Parse the JSON response
     })
     .then(data => {
-        console.log('API Response:', data); // Log the response from the API
+        console.log('API Response:', data.body); // Log the response from the API
         // Optionally, perform any further actions based on the API response
-        showToast("Success: Form submitted successfully!");
+        showToast("Success: Form submitted successfully!", 2);
+        clearInputFields()
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error); // Log any errors
-        showToast("Error while submitting form");
+        showToast("Error while submitting form", 3);
     });
 }
 
-function showToast(message) {
-    alert(message); // You can replace this with your preferred toast library or implementation
+function showToast(message, code) {
+    
+    var icon
+    if (code == 1) 
+        icon = 'info'
+    else if (code == 2)
+        icon = 'success'
+    else
+        icon = 'error'
+    
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: icon,
+        title: message,
+        showConfirmButton: false
+    });
+}
+
+function clearInputFields() {
+    // Get all input elements
+    var inputElements = document.querySelectorAll('input');
+
+    // Loop through each input element
+    inputElements.forEach(function(input) {
+        // Set the value of the input element to an empty string
+        input.value = '';
+    });
 }

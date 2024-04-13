@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Details Form</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
 </head>
 <body>
     <div class="container">
         <h2>User Details Form</h2>
-        <form id="userDetailsForm" onsubmit="return false;">
+        <form id="userDetailsForm">
             <label for="fullName">Full Name:</label>
             <input type="text" id="fullName" name="fullName" required>
 
             <label for="contactNumber">Contact Number:</label>
             <input type="tel" id="contactNumber" name="contactNumber" pattern="[0-9]{10}" required>
-            <small>Format: 10 digits</small>
 
             <label for="gender">Gender:</label>
             <select id="gender" name="gender" required>
@@ -45,6 +46,7 @@
             <button type="submit" onclick="onClickSubmit()">Submit</button>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
 </body>
 </html>
