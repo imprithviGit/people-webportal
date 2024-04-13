@@ -43,9 +43,13 @@
             <label for="panNo">PAN Number:</label>
             <input type="text" id="panNo" name="panNo" required>
 
-            <button type="submit" onclick="onClickSubmit()">Submit</button>
+            <div class="button-container"> <!-- Add a container for buttons -->
+                <button type="submit" onclick="onClickSubmit()">Submit</button>
+                <button type="submit" onclick="showDatabaseEntries()">Show Entries</button>
+            </div>
         </form>
     </div>
+    <div id="dataTable"></div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
 </body>

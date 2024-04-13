@@ -12,7 +12,7 @@ function onClickSubmit() {
             submitForm()
             console.log('Sure to submit');
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            console.log('Form submission canceled');
+            console.log('Form submission cancelled');
             return
         }
     });
@@ -130,3 +130,69 @@ function clearInputFields() {
         input.value = '';
     });
 }
+
+function showDatabaseEntries() {
+    Swal.fire({
+        title: 'Fetching Data',
+        text: 'Fetching data from the API...',
+        icon: 'info',
+        toast: 'true',
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000 
+    });
+
+    var form = document.getElementById("userDetailsForm");
+    form.style.display = 'none';
+
+    fetch('https://people-backend-production.up.railway.app/api/user/getUserDetails')
+        .then(response => {
+            console.log('Response Status:', response.status);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); 
+        })
+        .then(data => {
+            console.log('API Data:', data);
+            displayDataInTable(data); 
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            showToast("Error fetching data", 3);
+        });
+}
+
+    
+function displayDataInTable(data) {
+    var table = document.createElement("table");
+    var headerRow = table.insertRow();
+
+    Object.keys(data[0]).forEach(key => {
+        var headerCell = document.createElement("th");
+        headerCell.textContent = key;
+        headerRow.appendChild(headerCell);
+    });
+
+    data.forEach(item => {
+        var row = table.insertRow(); 
+        Object.values(item).forEach(value => {
+            var cell = row.insertCell(); 
+            cell.textContent = value;
+            cell.style.padding = "8px"; 
+        });
+    });
+
+    var dataTable = document.getElementById("dataTable");
+    if (!dataTable) {
+        dataTable = document.createElement("div");
+        dataTable.id = "dataTable";
+        document.body.appendChild(dataTable);
+    }
+
+    dataTable.innerHTML = '';
+
+    dataTable.appendChild(table);
+}
+
+
