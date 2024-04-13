@@ -6,6 +6,7 @@ function onClickSubmit() {
         showCancelButton: true,
         confirmButtonText: 'Yes',
         cancelButtonText: 'Cancel',
+        position: 'top-end'
     }).then((result) => {
         if (result.isConfirmed) {
             submitForm()
@@ -114,7 +115,8 @@ function showToast(message, code) {
         position: 'top-end',
         icon: icon,
         title: message,
-        showConfirmButton: false
+        showConfirmButton: false,
+        timer: 5000
     });
 }
 
