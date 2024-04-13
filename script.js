@@ -66,10 +66,7 @@ function verifyDetails(payload) {
     if (isNullOrEmpty(payload.fullName) || isNullOrEmpty(payload.contactNumber)) {
         return false;
     }
-
-    if (isNullOrEmpty(payload.aadharNo) && isNullOrEmpty(payload.panNo)) {
-        return false;
-    }
+    return true
 }
 
 function sendToAPI(payload) {
