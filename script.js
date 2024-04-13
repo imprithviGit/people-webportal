@@ -2,10 +2,10 @@ function onClickSubmit() {
     Swal.fire({
         title: 'Are you sure?',
         icon: 'question',
+        toast: 'true',
         showCancelButton: true,
         confirmButtonText: 'Yes',
         cancelButtonText: 'Cancel',
-        position: 'top'
     }).then((result) => {
         if (result.isConfirmed) {
             submitForm()
