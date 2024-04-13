@@ -5,10 +5,7 @@ function onClickSubmit() {
         showCancelButton: true,
         confirmButtonText: 'Yes',
         cancelButtonText: 'Cancel',
-        position: 'top',
-        customClass: {
-            popup: 'custom-popup-class'
-        }
+        position: 'top'
     }).then((result) => {
         if (result.isConfirmed) {
             submitForm()
