@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>User Details Form</h2>
+        <form id="userDetailsForm" onsubmit="return false;">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" required>
+
+            <label for="contactNumber">Contact Number:</label>
+            <input type="tel" id="contactNumber" name="contactNumber" pattern="[0-9]{10}" required>
+            <small>Format: 10 digits</small>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label for="stateOfBirth">State of Birth:</label>
+            <input type="text" id="stateOfBirth" name="stateOfBirth" required>
+
+            <label for="nationality">Nationality:</label>
+            <input type="text" id="nationality" name="nationality" required>
+
+            <label for="aadharNo">Aadhar Number:</label>
+            <input type="text" id="aadharNo" name="aadharNo" required>
+
+            <label for="panNo">PAN Number:</label>
+            <input type="text" id="panNo" name="panNo" required>
+
+            <button type="submit" onclick="onClickSubmit()">Submit</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
